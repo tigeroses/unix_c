@@ -11,7 +11,7 @@
 #include <time.h>
 #include <strings.h>
 
-#define PORTNUM 13000
+#define PORTNUM 7000
 #define HOSTLEN 256
 #define oops(msg)   {perror(msg); exit(1);}
 
@@ -26,7 +26,7 @@ int main(int ac, char *av[])
     time_t  thetime;
 
     // Step1: ask kernel for a socket
-    sock_id = socket(PF_INET, SOCK_STREAM, 0);
+    sock_id = socket(AF_INET, SOCK_STREAM, 0);
     if (sock_id == -1)
         oops("socket");
 
@@ -34,6 +34,7 @@ int main(int ac, char *av[])
     bzero((void *)&saddr, sizeof(saddr));       // clear out struct
 
     gethostname(hostname, HOSTLEN);
+    // printf("%s", hostname);
     hp = gethostbyname(hostname);
 
     // fill in host part
